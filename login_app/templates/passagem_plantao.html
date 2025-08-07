@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Passagem de Plantão</title>
+  <link rel="stylesheet" href="{% static 'styles/passagem.css' %}" class="sair">
+</head>
+
+<body>
+  <nav class="nav">
+    <img src="{% static 'img/Logo-min.svg' %}" alt="Logo JC" class="logo">
+    <a href="{% url 'logout' %}" class="sair">Sair</a>
+  </nav>
+  <div class="container-plantao" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <form method="post" action="{% url 'passagem_plantao' %}" class="main-form">
+      {% csrf_token %}
+      <div class="main-form-grid">
+        <div>
+          <label for="id_nome_backoffice">NOME DO COORDENADOR</label>
+          <input type="text" name="nome_coordenador" id="id_nome_backoffice" class="input" required>
+        </div>
+        <div>
+          <label for="id_nome_usuario">SEU NOME</label>
+          <input type="text" name="nome_usuario" id="id_nome_usuario" class="input" required>
+        </div>
+        <div>
+          <label for="id_data">DATA</label>
+          <input type="date" name="data" id="id_data" class="input" required>
+        </div>
+        <div>
+          <label for="id_plantao">PLANTÃO</label>
+          <select name="plantao" id="id_plantao" class="input" required>
+            <option value="">Selecione</option>
+            <option value="Alpha">Alpha</option>
+            <option value="Bravo">Bravo</option>
+            <option value="Charlie">Charlie</option>
+            <option value="Delta">Delta</option>
+            <option value="Echo">Echo</option>
+          </select>
+        </div>
+        <div>
+          <label for="id_base">BASE(OPERAÇÃO)</label>
+          <select name="base" id="id_base" class="input" required>
+            <option value="">Selecione</option>
+            <option value="Base 01">Base 01</option>
+            <option value="Base 02">Base 02</option>
+            <option value="Base 03">Base 03</option>
+            <option value="Base 04">Base 04</option>
+            <option value="Base 05">Base 05</option>
+          </select>
+        </div>
+        <div>
+          <label for="id_total_veiculos">VOLUMETRIA</label>
+          <input type="number" name="total_veiculos" id="id_total_veiculos" class="input" required>
+        </div>
+        <div>
+          <label for="id_veiculos_pernoite">VEICULOS EM PERNOITE</label>
+          <input type="number" name="veiculos_pernoite" id="id_veiculos_pernoite" class="input" required>
+        </div>
+        <div>
+          <label for="id_veiculos_viagem">VEICULOS EM VIAGEM</label>
+          <input type="number" name="veiculos_viagem" id="id_veiculos_viagem" class="input" required>
+        </div>
+        <div>
+          <label for="id_veiculos_manutencao">VEICULOS EM MANUTENÇÃO</label>
+          <input type="number" name="veiculos_manutencao" id="id_veiculos_manutencao" class="input" required>
+        </div>
+        <div>
+          <label for="id_veiculos_cliente">VEICULOS EM CLIENTE</label>
+          <input type="number" name="veiculos_cliente" id="id_veiculos_cliente" class="input" required>
+        </div>
+        <div>
+          <label for="id_desvios_rota">DESVIO DE ROTA</label>
+          <input type="number" name="desvios_rota" id="id_desvios_rota" class="input" required>
+        </div>
+        <div>
+          <label for="id_rotas_embarcadas">ROTAS EMBARCADAS</label>
+          <input type="number" name="rotas_embarcadas" id="id_rotas_embarcadas" class="input" required>
+        </div>
+        <div>
+          <label for="id_veiculos_para_iniciar_viagem">VEÍCULOS PARA INICIAR VIAGEM</label>
+          <input type="number" name="veiculos_para_iniciar_viagem" id="id_veiculos_para_iniciar_viagem" class="input" required>
+        </div>
+        <div>
+          <label for="id_veiculos_postos_fiscais">VEÍCULOS EM POSTOS FISCAIS</label>
+          <input type="number" name="veiculos_postos_fiscais" id="id_veiculos_postos_fiscais" class="input" required>
+        </div>
+        <div>
+          <label for="id_veiculos_borracharias">VEÍCULOS EM BORRACHARIAS</label>
+          <input type="number" name="veiculos_borracharias" id="id_veiculos_borracharias" class="input" required>
+        </div>
+        <div>
+          <label for="id_sinistros">SINISTROS</label>
+          <input type="number" name="sinistros" id="id_sinistros" class="input" required>
+        </div>
+        <div>
+          <label for="id_parada_nao_autorizada">PARADA NÃO AUTORIZADA</label>
+          <input type="number" name="parada_nao_autorizada" id="id_parada_nao_autorizada" class="input" required>
+        </div>
+        <div>
+          <label for="id_veiculos_abandonados">VEÍCULOS ABANDONADOS</label>
+          <input type="number" name="veiculos_abandonados" id="id_veiculos_abandonados" class="input" required>
+        </div>
+        <div>
+          <label for="id_veiculos_bloqueados_inatividade"> BLOQUEADOS POR INATIVIDADE</label>
+          <input type="number" name="veiculos_bloqueados_inatividade" id="id_veiculos_bloqueados_inatividade" class="input" required>
+        </div>
+        <div>
+          <label for="id_perda_sinal">PERDA DE SINAL</label>
+          <input type="number" name="perda_sinal" id="id_perda_sinal" class="input" required>
+        </div>
+        <div>
+          <label for="id_rotas_embarcadas_3s">ROTAS EMBARCADAS DOS 3S</label>
+          <input type="number" name="rotas_embarcadas_3s" id="id_rotas_embarcadas_3s" class="input" required>
+        </div>
+        <div>
+          <label for="id_rotas_embarcadas_t4s">ROTAS EMBARCADAS NO T4S</label>
+          <input type="number" name="rotas_embarcadas_t4s" id="id_rotas_embarcadas_t4s" class="input" required>
+        </div>
+        <div class="checkbox-group">
+          <div class="checkbox-group-title">
+            <label for="id_tem_mouse_pad">MOUSE PAD</label>
+            <input type="checkbox" name="tem_mouse_pad" id="id_tem_mouse_pad" class="input">
+          </div>
+          <div class="checkbox-group">
+            <label for="id_tem_descanso_pe">DESCANSO DE PÉ</label>
+            <input type="checkbox" name="tem_descanso_pe" id="id_tem_descanso_pe" class="input">
+          </div>
+          <div class="checkbox-group">
+            <label for="id_tem_carregador">CARREGADOR</label>
+            <input type="checkbox" name="tem_carregador" id="id_tem_carregador" class="input">
+          </div>
+        </div>
+
+      </div>
+      <div class="obs">
+        <label for="id_observacoes">OBSERVAÇÕES / DESCRIÇÃO DOS FATOS</label>
+        <textarea name="observacoes" id="id_observacoes" class="input" rows="3" required></textarea>
+      </div>
+      <button type="submit" class="btn">ENVIAR</button>
+    </form>
+  </div>
+</body>
+
+</html>

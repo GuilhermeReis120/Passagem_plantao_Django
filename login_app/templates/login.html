@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JC Login</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+</head>
+
+<body>
+  <img src="{% static 'img/LogoJC9e5a70c3-7102-48c3-8a82-691ca8fe8e7d.svg' %}" alt="Logo JC" class="logo">
+  <form method="post">
+    <h2 class="title">PASSAGEM DE PLANTÃO</h2>
+    {% csrf_token %}
+    <label for="id_username">Usuário</label>
+    {{ form.username }}
+    <label for="id_password">Senha</label>
+    {{ form.password }}
+    <button type="submit" class="btt_entrar">Entrar</button>
+    {% if form.errors %}
+    <div class="error">Usuário ou senha inválidos</div>
+    {% endif %}
+  </form>
+  <img src="{% static 'img/detalhe_background.png' %}" alt="Detalhe logo JC" class="detalhe_logo" style="  width: 800px; /* aumente o tamanho total da imagem */ position: absolute; bottom: -300px;  /* empurra metade da altura para fora da tela */ right: -300px;   /* empurra metade da largura para fora da tela */ z-index: -1;     /* opcional: suaviza a imagem */ pointer-events: none;">
+</body>
+
+</html>

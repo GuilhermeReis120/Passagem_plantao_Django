@@ -1,0 +1,160 @@
+body {
+  margin: 0;
+  overflow-y: auto;
+  min-height: 100vh;
+  background: linear-gradient(to bottom,
+      rgba(11, 47, 23, 1),
+      rgba(26, 62, 26, 1),
+      rgba(58, 81, 21, 1),
+      rgba(113, 109, 16, 1),
+      rgba(192, 166, 17, 1));
+  font-family: 'Roboto', sans-serif;
+}
+
+.nav {
+  margin-top: 0;
+  background: #263a10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  height: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.133);
+}
+
+.logo {
+  width: 11rem;
+}
+
+.sair {
+  text-decoration: none;
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  outline: none;
+  display: inline-block;
+  margin-left: 18px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.sair:hover,
+.sair:focus {
+  background: #b71c1c;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+  color: #fff;
+}
+
+.container-plantao {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.side-form {
+  background: #ededed;
+  border-radius: 12px;
+  margin-right: 30px;
+  padding: 20px 18px;
+  min-width: 170px;
+  box-shadow: 0 0 8px #8882;
+}
+
+.side-form label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.side-form .input {
+  width: 100%;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.main-form {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 32px 32px 24px 32px;
+  min-width: 800px;
+  box-shadow: 0 0 12px #8882;
+}
+
+.main-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 24px;
+}
+
+.main-form label {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.main-form .input {
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.main-form .obs {
+  grid-column: 1 / 4;
+  margin-top: 18px;
+}
+
+.main-form .btn {
+  background: #3d5c1c;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 0;
+  width: 180px;
+  margin-top: 18px;
+  float: right;
+  cursor: pointer;
+}
+
+.main-form .btn:hover {
+  background: #1d3a0a;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  grid-row: 9;
+  grid-column: 1 /3;
+  margin-left: 20px;
+}
+
+.checkbox-group-title {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  text-align: center;
+}
+
+#id_tem_mouse_pad,
+#id_tem_descanso_pe,
+#id_tem_carregador {
+  margin: 0 10px 0 20px;
+}

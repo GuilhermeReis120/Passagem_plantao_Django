@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom,
+          rgba(11, 47, 23, 1),
+          rgba(26, 62, 26, 1),
+          rgba(58, 81, 21, 1),
+          rgba(113, 109, 16, 1),
+          rgba(192, 166, 17, 1));
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      width: 90%;
+      max-width: 1200px;
+      margin: 40px auto;
+    }
+
+    h2 {
+      color: #3ac100;
+      margin: 0;
+    }
+
+    .graficos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .grafico {
+      background: #fafafa;
+      border-radius: 8px;
+      box-shadow: 0 0 8px #ddd;
+      padding: 18px;
+      min-width: 350px;
+      flex: 1;
+      margin: 10px;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .dashboard-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .dashboard-btn {
+      background: #0ed200;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .dashboard-btn:hover {
+      background: #268d00;
+    }
+
+    .tabela-formularios {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 1rem;
+      background: #ffffff;
+      box-shadow: 0 0 6px #e0e0e0;
+    }
+
+    .tabela-formularios th,
+    .tabela-formularios td {
+      border: 1px solid #2d2d2d;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .tabela-formularios th {
+      background: #008E00;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .tabela-formularios tr:nth-child(even) {
+      background: #00771a40;
+    }
+
+    .tabela-formularios tr:hover {
+      background: #e3f2fd;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="dashboard-header">
+      <h2>Dashboard de Plantão</h2>
+      <div class="dashboard-buttons">
+        <a href="{% url 'passagem_plantao' %}" class="dashboard-btn">Ir para o formulário</a>
+        <a href="{% url 'logout' %}" class="dashboard-btn">Sair</a>
+      </div>
+    </div>
+    <div class="grafico">{{ grafico5|safe }}</div>
+
+    <div class="grafico">{{ grafico12|safe }}</div>
+    <div class="graficos">
+      <div class="grafico" style="flex:2; min-width:500px;">
+        <h3>Últimas Passagens de Plantão</h3>
+        {{ tabela_formularios|safe }}
+      </div>
+    </div>
+    <!-- Modal de detalhes -->
+    <div id="modal-detalhes"
+      style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);z-index:9999;align-items:center;justify-content:center;">
+      <div
+        style="background:#fff;padding:32px 24px;border-radius:12px;max-width:500px;width:90%;box-shadow:0 0 20px #333;position:relative;">
+        <span id="fechar-modal"
+          style="position:absolute;top:10px;right:18px;font-size:2rem;cursor:pointer;">&times;</span>
+        <h3 style="margin-top:0">Detalhes da Passagem de Plantão</h3>
+        <div id="modal-conteudo"></div>
+      </div>
+    </div>
+    <script>
+      // Adiciona evento de clique nas linhas da tabela
+      document.addEventListener('DOMContentLoaded', function () {
+        var tabela = document.querySelector('.tabela-formularios');
+        if (tabela) {
+          tabela.querySelectorAll('tbody tr').forEach(function (linha) {
+            linha.style.cursor = 'pointer';
+            linha.addEventListener('click', function () {
+              var campos = [
+                'nome_coordenador', 'nome_usuario', 'data','data_envio', 'plantao', 'base', 'total_veiculos', 'veiculos_pernoite', 'veiculos_viagem', 'veiculos_manutencao',
+                'veiculos_cliente', 'desvios_rota', 'rotas_embarcadas', 'veiculos_para_iniciar_viagem', 'veiculos_postos_fiscais',
+                'veiculos_borracharias', 'sinistros', 'parada_nao_autorizada', 'veiculos_abandonados', 'veiculos_bloqueados_inatividade',
+                'perda_sinal', 'rotas_embarcadas_3s', 'rotas_embarcadas_t4s', 'tem_mouse_pad', 'tem_descanso_pe', 'tem_carregador',
+                'observacoes'
+              ];
+              var dados = campos.map(function (campo) {
+                var valor = linha.getAttribute('data-' + campo);
+                if (campo === 'observacoes') {
+                  return '<b>' + campo.replace(/_/g, ' ').replace(/\b\w/g, function (l) { return l.toUpperCase(); }) + ':</b> <div style="max-height:120px;overflow:auto;word-break:break-word;white-space:pre-line;">' + (valor === null ? '' : valor) + '</div>';
+                }
+                return '<b>' + campo.replace(/_/g, ' ').replace(/\b\w/g, function (l) { return l.toUpperCase(); }) + ':</b> ' + (valor === null ? '' : valor);
+              });
+              document.getElementById('modal-conteudo').innerHTML = dados.join('<br>');
+              document.getElementById('modal-detalhes').style.display = 'flex';
+            });
+          });
+        }
+        document.getElementById('fechar-modal').onclick = function () {
+          document.getElementById('modal-detalhes').style.display = 'none';
+        };
+        document.getElementById('modal-detalhes').onclick = function (e) {
+          if (e.target === this) {
+            this.style.display = 'none';
+          }
+        };
+      });
+    </script>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico1|safe }}</div>
+    </div>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico2|safe }}</div>
+    </div>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico3|safe }}</div>
+    </div>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico4|safe }}</div>
+    </div>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico6|safe }}</div>
+    </div>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico7|safe }}</div>
+    </div>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico8|safe }}</div>
+    </div>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico9|safe }}</div>
+    </div>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico10|safe }}</div>
+    </div>
+
+    <div class="graficos">
+      <div class="grafico">{{ grafico11|safe }}</div>
+    </div>
+
+  </div>
+</body>
+
+</html>

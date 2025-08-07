@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário Passagem CFTV</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/passagem.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Formulário Passagem CFTV</h2>
+        {% if error %}
+            <div style="color: #d32f2f; font-weight: bold; margin-bottom: 20px;">{{ error }}</div>
+        {% elif form %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btt_entrar">Salvar</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>
